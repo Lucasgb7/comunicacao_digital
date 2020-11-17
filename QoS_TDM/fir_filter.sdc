@@ -1,0 +1,1 @@
+set_output_delay -clock {clock} 0 [all_outputs] 
