@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY axi4_controller
+set_global_assignment -name TOP_LEVEL_ENTITY ip
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 19.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:40:22  DECEMBER 07, 2020"
 set_global_assignment -name LAST_QUARTUS_VERSION "19.1.0 Lite Edition"
@@ -58,6 +58,12 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name VHDL_FILE ip.vhd
+set_global_assignment -name VHDL_FILE spi_controller.vhd
+set_global_assignment -name VHDL_FILE spi.vhd
+set_global_assignment -name VHDL_FILE register_12bits.vhd
+set_global_assignment -name VHDL_FILE mux12_1.vhd
+set_global_assignment -name VHDL_FILE hamming12_8.vhd
 set_global_assignment -name VHDL_FILE counter.vhd
 set_global_assignment -name VHDL_FILE axi4_controller.vhd
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top

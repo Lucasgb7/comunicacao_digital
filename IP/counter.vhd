@@ -1,50 +1,33 @@
 ------------------------------------------------
--- Design: counter
+-- Design: Counter
 -- Entity: counter
--- Author: Jonath, Lucas, Luiz e Teddy
+-- Author: Jonath Herdt e Luiz Zimmerman
 -- Rev.  : 1.0
--- Date  : 05/12/2020
+-- Date  : 07/12/2020
 ------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity counter is
-port(	i_CLK		: in std_logic;						-- clock
-		i_RST		: in std_logic;						-- reset
-     	i_CVALID	: in std_logic;						-- sinal de valido
-        i_LIMIT		: in std_logic_vector(2 downto 0);	-- limite de palavras
-        o_S			: in std_logic);					-- saida de ultima palavra
+port (	i_CLK   : in std_logic;
+		i_CLRn  : in std_logic;
+        i_UP    : in std_logic;
+		o_S	    : out std_logic_vector(3 downto 0));
 end counter;
- 
 
 architecture arch_1 of counter is
-
-    signal REG_LIMITE	: std_logic_vector(2 downto 0) := (others => '0');
-    signal COUNTER		: std_logic_vector(2 downto 0) := (others => '0');
-
+signal w_S : std_logic_vector (3 downto 0);
 begin
-    p_VALID: process(i_CVALID, i_LIMIT) 
-    begin	
-        if(i_CVALID = '1') then
-            REG_LIMITE <= i_LIMIT;
-        else
-            REG_LIMITE <= REG_LIMITE;               
+  process(i_CLK, i_CLRn, i_UP)
+  begin
+  	if (i_CLRn = '0') then
+        w_S <= "0000";
+	elsif (rising_edge(i_CLK)) then
+    	if (i_UP = '1') then
+        	w_S <= std_logic_vector(unsigned(w_S) + 1);
         end if;
-    end process;
-    
-    p_COUNT: process(i_CLK, i_RST)  
-    begin
-        if(i_RST = '0') then 
-            COUNTER <= (others =>'0');
-            o_S <= '0';
-        elsif(rising_edge(i_CLK)) then
-            if(unsigned(COUNTER) = unsigned(REG_LIMITE) - 1) then  
-                o_S <= '1';
-            else 
-                COUNTER <= std_logic_vector(unsigned(COUNTER) + 1); 
-                o_S <= '0';    
-            end if;
-        end if;        
-    end process; 
+	end if;
+    o_S <= w_S;
+  end process;
 end arch_1;
